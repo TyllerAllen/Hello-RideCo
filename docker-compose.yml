@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hello-rideco-api
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=development
+      - PORT=4000
+      - DATABASE_URL=file:/app/packages/database/prisma/dev.db
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/apps/api/node_modules
+      - /app/packages/database/node_modules
+      - /app/packages/ui/node_modules
+      - database-data:/app/packages/database/prisma
+    working_dir: /app
+    entrypoint: ["/usr/local/bin/docker-entrypoint.sh"]
+    networks:
+      - hello-rideco-network
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+
+volumes:
+  database-data:
+    driver: local
+
+networks:
+  hello-rideco-network:
+    driver: bridge
+

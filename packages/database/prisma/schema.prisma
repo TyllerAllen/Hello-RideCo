@@ -1,0 +1,32 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/client"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model GroceryList {
+  id        String        @id @default(cuid())
+  name      String
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  items     GroceryItem[]
+}
+
+model GroceryItem {
+  id        String      @id @default(cuid())
+  name      String
+  quantity  Int         @default(1)
+  listId    String
+  list      GroceryList @relation(fields: [listId], references: [id], onDelete: Cascade)
+  purchased Boolean     @default(false)
+  deleted   Boolean     @default(false)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+}

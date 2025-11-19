@@ -1,0 +1,1 @@
+{"root":["./src/index.ts","./src/server.ts","./src/config/allowedorigins.ts","./src/config/corsoptions.ts","./src/middleware/credentials.ts","./src/middleware/error.ts","./src/routes/index.ts","./src/routes/list.routes.ts"],"version":"5.9.3"}
