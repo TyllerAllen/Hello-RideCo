@@ -36,8 +36,8 @@ export default function HomeScreen() {
   };
 
   const handleAddItem = () => {
-    console.log(newItem);
     addItem({ name: newItem }).then((list) => setList(list?.items ?? []));
+    setNewItem("");
   };
 
   useEffect(() => {
